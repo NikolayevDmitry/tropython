@@ -5,7 +5,6 @@ AUTHORS:
 
 - Dmitry Kashirin (2016-10-15) - Initial version
 - Dmitry Nikolayev (2016-10-15) - Improved version
-
 """
 
 import math
