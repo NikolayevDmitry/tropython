@@ -3,14 +3,15 @@ from random import random
 
 class NeuralNetwork:
 	'Neural Network class.'
-	def __init__(self, structure):
+	def __init__(self, structure, type):
 		'Initialization.'
+		self.type = type
 		self.layers = []
-		#input
-		self.input = structure[0]
+		self.input = structure[0]#input vector size
 		#layers
-		for x in range(1, len(structure)):
-			self.layers.append(self.constructLayer(structure[x], structure[x-1]))
+		#for x in range(1, len(structure)):
+		for x, y in zip(structure[1:], structure):
+			self.layers.append(self.constructLayer(x, y))
 
 	def constructLayer(self, num, prev):
 		'Construct layer.'
@@ -22,7 +23,7 @@ class NeuralNetwork:
 			for x in range(prev):
 				weights.append(random())
 
-			layer.append(Neuron(weights))
+			layer.append(Neuron(self.type, weights))
 
 		return layer
 
@@ -30,10 +31,26 @@ class NeuralNetwork:
 		'Calculate.'
 		if len(input) != self.input:
 			print('Wrong input vector size.')
+		#errors for wrong input type
 
 		for layer in self.layers[1:]:
 			result = []
 			for neuron in layer:
 				result.append(neuron.sigma(neuron.net(input)))
 			input = result
-		print(result)#result
+		print(result)
+
+	def __str__(self):
+		#kwargs
+		''
+		counter = 1		
+
+		for layer in self.layers:
+			print('Layer ' + str(counter))
+			ncounter = 1
+			for neuron in layer:
+				print('\tNeuron ' + str(ncounter), end=': ')
+				print(neuron.weights)
+				ncounter += 1
+			counter += 1
+		return str(self.type)

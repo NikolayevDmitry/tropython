@@ -1,5 +1,6 @@
 from types import MethodType
 from math import exp
+from Matrix import Matrix
 
 def default_net(self, input):
 	'Dot product.'
@@ -15,9 +16,10 @@ def default_sigma(self, input):
 class Neuron:
 	'Single neuron class.'
 
-	def __init__(self, weights, net=0, sigma=0):
+	def __init__(self, type, weights, net=0, sigma=0):
 		'Initialization.'
 		self.weights = weights
+		self.type = type
 
 		if callable(net) == 1:
 			self.net = MethodType(net, self)
@@ -31,7 +33,8 @@ class Neuron:
 
 	def __str__(self):
 		'To string.'
-		return 'Neuron.'
+		return str(self.type) + '\t' + str(self.weights)
 	def __repr__(self):
 		'Representation.'
 		return 'Neuron'
+	#set_net and set_sigma methods
